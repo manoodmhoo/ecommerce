@@ -1,4 +1,4 @@
-# Laravel E-Commerce API
+# Laravel E-Commerce API - Interview Exercise
 
 ## API documentation:
 
@@ -51,7 +51,3 @@ $ composer install
 $ php artisan key:generate  
 $ php artisan migrate  
 $ php artisan db:seed  
-
-## License
-
-MIT
