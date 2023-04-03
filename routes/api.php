@@ -20,11 +20,11 @@ use App\Http\Resources\UserResource;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return new UserResource($request->user());
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return new UserResource($request->user());
+// });
 
-Route::post('/auth/register', [AuthController::class, 'register']);
+// Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/auth/logout', [AuthController::class, 'logout']);
 
