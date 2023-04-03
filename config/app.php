@@ -53,6 +53,7 @@ return [
     | your application so that it is used when running Artisan tasks.
     |
     */
+    'admin_email' => 'sahaphap.se@pivot.co.th',
 
     'url' => env('APP_URL', 'http://localhost'),
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\UserResource;
@@ -41,7 +42,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('/product', ProductController::class);
     Route::get('/products', [ProductController::class, 'productCanBuy']);
 
-    Route::post('/carts/{cart}/checkout', [CartController::class, 'checkout']);
+    Route::post('/carts/{cart}/checkout', [OrderController::class, 'checkout']);
 });
 
 

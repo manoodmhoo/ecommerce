@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -18,7 +20,10 @@ class CategoryController extends Controller
     {
         //
         if(auth()->user()->can('list-categories')) {
-            $categories = Category::all();
+            $currentPage = isset($request->page) ? (int)$request->page : 1;
+            $categories = Cache::remember('product-' . $currentPage, 10, function(){
+                return  DB::table('categories')->orderBy('updated_at', 'desc')->paginate(10);
+            });
             return response()->json([
                 'categories' => $categories
             ], 200);

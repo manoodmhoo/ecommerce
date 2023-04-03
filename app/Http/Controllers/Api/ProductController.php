@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
 use App\Http\Resources\ProductResource;
 use Illuminate\Contracts\Cache\Store;
+use Illuminate\Support\Facades\Cache;
 
 class ProductController extends Controller
 {
@@ -18,11 +19,15 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         if(auth()->user()->can('list-products')) {
-            $products = Product::with('category')->get();
+            $currentPage = isset($request->page) ? (int)$request->page : 1;
+            $products = Cache::remember('product-' . $currentPage, 10, function(){
+                return  Product::with('category')->orderBy('updated_at', 'desc')->paginate(10);
+            });
+
             return response()->json([
                 'products' => $products,
             ], 200);
